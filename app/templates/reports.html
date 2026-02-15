@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row mb-4">
+    <h1><i class="fas fa-chart-bar"></i> Farm Financial Reports</h1>
+</div>
+
+<div class="row mb-4">
+    <div class="col-md-4">
+        <div class="card bg-light">
+            <div class="card-body text-center">
+                <h5 class="card-title">Total Revenue</h5>
+                <h2 class="text-success">₹{{ reports.total_revenue }}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card bg-light">
+            <div class="card-body text-center">
+                <h5 class="card-title">Total Costs</h5>
+                <h2 class="text-danger">₹{{ reports.total_costs }}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card bg-light">
+            <div class="card-body text-center">
+                <h5 class="card-title">Gross Profit</h5>
+                <h2 class="text-info">₹{{ reports.total_profit }}</h2>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0"><i class="fas fa-leaf"></i> Crop-Wise Profit Analysis</h5>
+            </div>
+            <div class="card-body">
+                {% if reports.crop_profits %}
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Crop Type</th>
+                                    <th>Field</th>
+                                    <th>Yield (kg)</th>
+                                    <th>Revenue</th>
+                                    <th>Cost</th>
+                                    <th>Profit</th>
+                                    <th>Profit Margin</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for crop in reports.crop_profits %}
+                                <tr>
+                                    <td><strong>{{ crop.crop_type }}</strong></td>
+                                    <td>{{ crop.field }}</td>
+                                    <td>{{ crop.yield }}</td>
+                                    <td class="text-success">₹{{ crop.revenue|round(2) }}</td>
+                                    <td class="text-danger">₹{{ crop.cost|round(2) }}</td>
+                                    <td class="text-info"><strong>₹{{ crop.profit|round(2) }}</strong></td>
+                                    <td>
+                                        {% if crop.cost > 0 %}
+                                            {{ ((crop.profit / crop.cost) * 100)|round(2) }}%
+                                        {% else %}
+                                            -
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% else %}
+                    <p class="text-muted">No harvested crops to report yet.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header bg-success text-white">
+                <h5 class="mb-0"><i class="fas fa-users"></i> Labour Cost Summary</h5>
+            </div>
+            <div class="card-body">
+                {% if reports.labour_costs %}
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Worker Name</th>
+                                    <th>Total Labour Cost</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for labour_name, cost in reports.labour_costs %}
+                                <tr>
+                                    <td><strong>{{ labour_name }}</strong></td>
+                                    <td class="text-danger">₹{{ cost|round(2) if cost else '0.00' }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% else %}
+                    <p class="text-muted">No labour records found.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12 text-center">
+        <a href="/reports/api/crop-stats" class="btn btn-info" target="_blank"><i class="fas fa-download"></i> Export Data</a>
+    </div>
+</div>
+{% endblock %}

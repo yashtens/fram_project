@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row mb-4">
+    <h1><i class="fas fa-plus-circle"></i> Add New Crop</h1>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-body">
+                <form method="POST">
+                    <div class="mb-3">
+                        <label for="field_id" class="form-label">Select Field <span class="text-danger">*</span></label>
+                        <select class="form-select" id="field_id" name="field_id" required>
+                            <option value="">-- Choose a field --</option>
+                            {% for field in fields %}
+                                <option value="{{ field.id }}">{{ field.name }} ({{ field.area }} acres)</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="crop_type" class="form-label">Crop Type <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="crop_type" name="crop_type" placeholder="e.g., Rice, Wheat, Corn" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="variety" class="form-label">Variety</label>
+                        <input type="text" class="form-control" id="variety" name="variety" placeholder="e.g., Basmati, Golden">
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="seeding_date" class="form-label">Seeding Date <span class="text-danger">*</span></label>
+                            <input type="date" class="form-control" id="seeding_date" name="seeding_date" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="expected_harvest_date" class="form-label">Expected Harvest Date</label>
+                            <input type="date" class="form-control" id="expected_harvest_date" name="expected_harvest_date">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="quantity_seeded" class="form-label">Quantity Seeded (kg) <span class="text-danger">*</span></label>
+                            <input type="number" class="form-control" id="quantity_seeded" name="quantity_seeded" step="0.01" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="expected_yield" class="form-label">Expected Yield (kg)</label>
+                            <input type="number" class="form-control" id="expected_yield" name="expected_yield" step="0.01">
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="notes" class="form-label">Notes</label>
+                        <textarea class="form-control" id="notes" name="notes" rows="3"></textarea>
+                    </div>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a href="/crops/" class="btn btn-secondary">Cancel</a>
+                        <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Add Crop</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

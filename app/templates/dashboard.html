@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row mb-4">
+    <h1 class="mb-4"><i class="fas fa-tachometer-alt"></i> Dashboard</h1>
+</div>
+
+<div class="row">
+    <div class="col-md-3 mb-3">
+        <div class="card bg-primary text-white">
+            <div class="card-body">
+                <h5 class="card-title">Total Fields</h5>
+                <p class="card-text display-4">{{ stats.total_fields }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 mb-3">
+        <div class="card bg-success text-white">
+            <div class="card-body">
+                <h5 class="card-title">Total Crops</h5>
+                <p class="card-text display-4">{{ stats.total_crops }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 mb-3">
+        <div class="card bg-warning text-white">
+            <div class="card-body">
+                <h5 class="card-title">Active Crops</h5>
+                <p class="card-text display-4">{{ stats.active_crops }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 mb-3">
+        <div class="card bg-info text-white">
+            <div class="card-body">
+                <h5 class="card-title">Total Labour</h5>
+                <p class="card-text display-4">{{ stats.total_labours }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-4 mb-3">
+        <div class="card">
+            <div class="card-body bg-light">
+                <h5 class="card-title"><i class="fas fa-coins"></i> Total Revenue</h5>
+                <h3 class="text-success">₹{{ stats.total_revenue }}</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-3">
+        <div class="card">
+            <div class="card-body bg-light">
+                <h5 class="card-title"><i class="fas fa-money-bill"></i> Total Costs</h5>
+                <h3 class="text-danger">₹{{ stats.total_costs }}</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-3">
+        <div class="card">
+            <div class="card-body bg-light">
+                <h5 class="card-title"><i class="fas fa-chart-line"></i> Gross Profit</h5>
+                <h3 class="text-info">₹{{ stats.gross_profit }}</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Quick Actions</h5>
+                <a href="/field/add" class="btn btn-primary"><i class="fas fa-field"></i> Add Field</a>
+                <a href="/crops/add" class="btn btn-success"><i class="fas fa-leaf"></i> Add Crop</a>
+                <a href="/labour/add" class="btn btn-warning"><i class="fas fa-users"></i> Add Labour</a>
+                <a href="/costs/add" class="btn btn-info"><i class="fas fa-money-bill"></i> Add Cost</a>
+                <a href="/reports/" class="btn btn-secondary"><i class="fas fa-chart-bar"></i> View Reports</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

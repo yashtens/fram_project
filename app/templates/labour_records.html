@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-md-9">
+        <h1><i class="fas fa-briefcase"></i> Labour Records</h1>
+    </div>
+    <div class="col-md-3 text-end">
+        <a href="/labour/record/add" class="btn btn-primary"><i class="fas fa-plus"></i> Add Record</a>
+    </div>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-striped table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>Worker</th>
+                <th>Crop</th>
+                <th>Work Type</th>
+                <th>Date</th>
+                <th>Hours Worked</th>
+                <th>Cost</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if records %}
+                {% for record in records %}
+                <tr>
+                    <td><strong>{{ record.labour.name }}</strong></td>
+                    <td>{{ record.crop.crop_type }}</td>
+                    <td>{{ record.work_type }}</td>
+                    <td>{{ record.work_date.strftime('%Y-%m-%d') }}</td>
+                    <td>{{ record.hours_worked }}</td>
+                    <td>₹{{ record.total_cost|round(2) }}</td>
+                    <td>
+                        <a href="/labour/record/{{ record.id }}/delete" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i> Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="7" class="text-center text-muted">No labour records found. <a href="/labour/record/add">Add one now</a></td>
+                </tr>
+            {% endif %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

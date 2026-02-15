@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row mb-4">
+    <h1><i class="fas fa-plus-circle"></i> Add Labour Record</h1>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-body">
+                <form method="POST">
+                    <div class="mb-3">
+                        <label for="crop_id" class="form-label">Select Crop <span class="text-danger">*</span></label>
+                        <select class="form-select" id="crop_id" name="crop_id" required>
+                            <option value="">-- Choose a crop --</option>
+                            {% for crop in crops %}
+                                <option value="{{ crop.id }}">{{ crop.crop_type }} - {{ crop.field.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="labour_id" class="form-label">Select Labour <span class="text-danger">*</span></label>
+                        <select class="form-select" id="labour_id" name="labour_id" required>
+                            <option value="">-- Choose labour --</option>
+                            {% for labour in labours %}
+                                <option value="{{ labour.id }}">{{ labour.name }} (₹{{ labour.daily_wage }}/day)</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="work_date" class="form-label">Work Date <span class="text-danger">*</span></label>
+                            <input type="date" class="form-control" id="work_date" name="work_date" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="hours_worked" class="form-label">Hours Worked <span class="text-danger">*</span></label>
+                            <input type="number" class="form-control" id="hours_worked" name="hours_worked" step="0.5" required>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="work_type" class="form-label">Work Type <span class="text-danger">*</span></label>
+                        <select class="form-select" id="work_type" name="work_type" required>
+                            <option value="">-- Select --</option>
+                            <option value="Seeding">Seeding</option>
+                            <option value="Weeding">Weeding</option>
+                            <option value="Irrigation">Irrigation</option>
+                            <option value="Fertilizing">Fertilizing</option>
+                            <option value="Harvesting">Harvesting</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="notes" class="form-label">Notes</label>
+                        <textarea class="form-control" id="notes" name="notes" rows="3"></textarea>
+                    </div>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a href="/labour/records" class="btn btn-secondary">Cancel</a>
+                        <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Add Record</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

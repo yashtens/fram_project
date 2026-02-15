@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row mb-4">
+    <h1><i class="fas fa-edit"></i> Edit Field</h1>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-body">
+                <form method="POST">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Field Name <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="name" name="name" value="{{ field.name }}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="area" class="form-label">Area (in acres) <span class="text-danger">*</span></label>
+                        <input type="number" class="form-control" id="area" name="area" step="0.01" value="{{ field.area }}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="location" class="form-label">Location</label>
+                        <input type="text" class="form-control" id="location" name="location" value="{{ field.location or '' }}">
+                    </div>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a href="/fields" class="btn btn-secondary">Cancel</a>
+                        <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Update Field</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row mb-4">
+    <h1><i class="fas fa-plus-circle"></i> Add Cost Record</h1>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-body">
+                <form method="POST">
+                    <div class="mb-3">
+                        <label for="crop_id" class="form-label">Select Crop <span class="text-danger">*</span></label>
+                        <select class="form-select" id="crop_id" name="crop_id" required>
+                            <option value="">-- Choose a crop --</option>
+                            {% for crop in crops %}
+                                <option value="{{ crop.id }}">{{ crop.crop_type }} - {{ crop.field.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="category" class="form-label">Cost Category <span class="text-danger">*</span></label>
+                        <select class="form-select" id="category" name="category" required>
+                            <option value="">-- Select --</option>
+                            <option value="Seeds">Seeds</option>
+                            <option value="Fertilizer">Fertilizer</option>
+                            <option value="Pesticide">Pesticide</option>
+                            <option value="Equipment">Equipment</option>
+                            <option value="Water">Water/Irrigation</option>
+                            <option value="Fuel">Fuel</option>
+                            <option value="Transportation">Transportation</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Description</label>
+                        <input type="text" class="form-control" id="description" name="description">
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="amount" class="form-label">Amount (₹) <span class="text-danger">*</span></label>
+                            <input type="number" class="form-control" id="amount" name="amount" step="0.01" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="transaction_date" class="form-label">Transaction Date</label>
+                            <input type="date" class="form-control" id="transaction_date" name="transaction_date">
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="notes" class="form-label">Notes</label>
+                        <textarea class="form-control" id="notes" name="notes" rows="3"></textarea>
+                    </div>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a href="/costs/" class="btn btn-secondary">Cancel</a>
+                        <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Add Cost</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
