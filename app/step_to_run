@@ -1,0 +1,17 @@
+# Navigate to project (if not already there)
+cd d:\fram-project
+
+# Activate virtual environment
+.venv\Scripts\activate
+
+# Install packages
+pip install -r requirements.txt
+
+# Create .env file (first time only)
+copy .env.example .env
+
+# Edit .env file - add your MySQL password
+notepad .env
+
+# Run the application
+python run.py
